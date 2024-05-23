@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="normalize.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <div class="flexbox">
+        <h1 class="title">Dashboard</h1>
+        <div class="settings-button-container">
+            <a class="settings-button" href="settings.html">Settings</a>
+        </div>
+    </div>
+    <h2 class=status>All monitored systems are operational</h2>
+    <div class="card" id="card-1">
+        <div class="flexbox">
+            <h3 class="card-title">syco@rpi</h3>
+            <img src="./imgs/reboot.png" alt="reboot" class="reboot" draggable="false" title="Reboot">
+        </div>
+        <p class="card-status" id="1">Online</p>
+        <div class="grid-container">
+            <div class="grid-item">
+                <div class="uptime">Uptime: 23 days</div>
+                <div class="heartbeat-container">
+                    <div class="heartbeat" id="hb1">
+                    </div>
+                    <div class="heartbeat" id="hb2">
+                    </div>
+                    <div class="heartbeat" id="hb3">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-item">
+                <div class="load">Load avg: Loading...</div>
+                <progress class="load-progress" value="0" max="100" id="bar1"></progress>
+            </div>
+
+            <div class="grid-item">
+                <div class="memory"> Memory usage: Loading...</div>
+                <progress class="memory-progress" value="0" max="100" id="bar2"></progress>
+            </div>
+            <div class="grid-item">
+                <div class="disk">Disk usage: Loading...</div>
+                <progress class="disk-progress" value="0" max="100" id="bar3"></progress>
+            </div>
+            <div class="grid-item">Temperature: Loading...
+                <progress value="0" max="100" id="bar4"></progress>
+            </div>
+
+        </div>
+    </div>
+    <!-- <div class=card id="card-2">
+        <h3 class="card-title">syco@ares</h3>
+        <p class="card-status" id="1">Offline</p>
+        <div class="grid-container">
+            <div class="grid-item">Down since: 3 hours</div>
+            <div class="grid-item button"><a class="reboot" href="wol.html">Wake on Lan</a></div>
+        </div>
+    </div> -->
+
+</body>
+<script src="script.js"></script>
+
+</html>
