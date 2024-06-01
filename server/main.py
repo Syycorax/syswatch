@@ -9,7 +9,7 @@ CORS(app)
 def dbinit():
     connection = sqlite3.connect("data.db")
     cursor = connection.cursor()
-    cursor.execute("CREATE TABLE IF NOT EXISTS computers (id INTEGER PRIMARY KEY, uptime INTEGER, load INTEGER, memusage INTEGER, diskusage INTEGER)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS computers (id INTEGER PRIMARY KEY, uptime INTEGER, load INTEGER, memusage INTEGER, diskusage INTEGER, temp INTEGER)")
     connection.commit()
     connection.close()
 dbinit()
@@ -63,6 +63,17 @@ def diskusage():
             return "Invalid data", 400
     else:
         return getdata("diskusage")
+    
+@app.route("/api/temp", methods=["POST", "GET"])
+def temp():
+    if request.method == "POST":
+        data = request.json
+        if parsedata(data,"temp"):
+            return "OK"
+        else:
+            return "Invalid data", 400
+    else:
+        return getdata("temp")
 
 def parsedata(data, key):
     if "id" not in data or key not in data:
@@ -70,7 +81,6 @@ def parsedata(data, key):
     connection = sqlite3.connect("data.db")
     cursor = connection.cursor()
     # We assume this is handeled already
-    #cursor.execute("CREATE TABLE IF NOT EXISTS computers (id INTEGER PRIMARY KEY, uptime INTEGER)")
     cursor.execute("INSERT INTO computers (id, "+key+") VALUES (?, ?)ON CONFLICT(id) DO UPDATE SET "+key+" = excluded."+key,(data["id"], data[key]))    
     connection.commit()
     connection.close()
