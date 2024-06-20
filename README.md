@@ -1,4 +1,5 @@
 # syswatch
+![syswatch](https://github.com/Syycorax/syswatch/assets/54723548/60687ef3-864a-44eb-b970-78f08fa53e94)
 ## Presentation
 Syswatch is my personal system monitoring tool. It is work in progress and is not ready for production use. 
 It uses sqlite3 for the database, flask for the server and vanilla javascript for the interface.
