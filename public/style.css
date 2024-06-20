@@ -48,7 +48,7 @@ a {
     font-size: 30px;
     padding-top: 20px;
     padding-left: 300px;
-    color: #85FFC7;
+    color: #ffffff;
 }
 
 .card-title {
@@ -102,13 +102,8 @@ progress {
     background-color: #85FFC7;
     border-radius: 50%;
     display: inline-block;
-
+    margin-right: 5px;
 }
-
-div#hb3.heartbeat {
-    background-color: #ACBED8;
-}
-
 
 .heartbeat-container {
     padding-top: 4px;

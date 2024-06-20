@@ -1,15 +1,12 @@
 import requests
 import os
 import time
-id = 1
-BASEURL = "http://localhost:5000/api"
+from dotenv import load_dotenv
+load_dotenv()
+BASEURL = os.getenv("BASEURL")
+id = os.getenv("ID")
 iswindows = os.name == "nt"
-
-def heartbeat():
-    """
-    TODO: sends heartbeat to /heartbeat endpoint
-    """
-    requests.post(f"{BASEURL}/heartbeat", json={"id": id}, timeout=5)
+password = os.getenv("PASSWORD")
 
 def getuptime():
     """
@@ -24,7 +21,7 @@ def getuptime():
         with open("/proc/uptime", "r", encoding="utf-8") as f:
             uptime = int(float(f.read().split(" ")[0]) * 1000)
             print("uptime", uptime)
-    requests.post(f"{BASEURL}/uptime", json={"id": id, "uptime": uptime}, timeout=5)
+    requests.post(f"{BASEURL}/uptime", json={"id": id, "uptime": uptime, "password": password}, timeout=5)
 
 
 def getload():
@@ -36,7 +33,7 @@ def getload():
         load = load.split(" ")[0]
     else:
         load = os.popen("uptime").read().strip().split("load average: ")[1].split(",")[0]
-    requests.post(f"{BASEURL}/load", json={"id": id, "load": load}, timeout=5)
+    requests.post(f"{BASEURL}/load", json={"id": id, "load": load, "password": password}, timeout=5)
 
 
 
@@ -56,7 +53,7 @@ def memusage():
             free = int(mem[2].split(" ")[-2])
             used = total - free
             usedpercent = round((used / total) * 100)
-    requests.post(f"{BASEURL}/memusage", json={"id": id, "memusage":usedpercent}, timeout=5)
+    requests.post(f"{BASEURL}/memusage", json={"id": id, "memusage":usedpercent, "password": password}, timeout=5)
 
 
 def diskusage():
@@ -70,7 +67,7 @@ def diskusage():
         print("usedpercent", usedpercent)
     else:
         usedpercent = os.popen("df -h /").read().strip().split("\n")[1].split(" ")[9][:-1]
-    requests.post(f"{BASEURL}/diskusage", json={"id": id, "diskusage": usedpercent}, timeout=5)
+    requests.post(f"{BASEURL}/diskusage", json={"id": id, "diskusage": usedpercent, "password": password}, timeout=5)
 
 def temp():
     """sends temperature to /temp endpoint"""
@@ -83,10 +80,22 @@ def temp():
             t = int(t) / 1000
             t = int(t)
             print("temp", t)
-    requests.post(f"{BASEURL}/temp", json={"id": id, "temp": t}, timeout=5)
+    requests.post(f"{BASEURL}/temp", json={"id": id, "temp": t, "password": password}, timeout=5)
 
-                                                                           
+def userstring():
+    """sends userstring to /userstring endpoint"""
+    if iswindows:
+        user = os.popen("whoami").read().strip().split("\\")[-1]
+        machine = os.popen("hostname").read().strip()
+        userstring = f"{user}@{machine}"
+        print("userstring", userstring)
+    else:
+        userstring = os.popen("whoami").read().strip()
+    requests.post(f"{BASEURL}/user", json={"id": id, "userstring": userstring, "password": password}, timeout=5)
+
+
 def main():
+    userstring()
     while True:
         getuptime()
         getload()
