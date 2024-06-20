@@ -17,4 +17,10 @@ It uses sqlite3 for the database, flask for the server and vanilla javascript fo
     - `index.html` : the main interface file
     - `normalize.css` : normalize how the interface looks on different browsers
     - `style.css` : the css file for the interface
-    - `script.js` : the javascript file for the interface
+    - `script.js` : the javascript file for the interface*
+
+ ## Todo
+ - [ ] Better auth
+ - [ ] Remove machine from webui
+ - [ ] Reboot
+ - [ ] Get temp on Windows without admin right
